@@ -10,6 +10,14 @@ function goToLogin(reason) {
   window.location.replace(url.href);
 }
 
+function hidePageUntilValidated() {
+  document.documentElement.classList.add("auth-pending");
+}
+
+function showValidatedPage() {
+  document.documentElement.classList.remove("auth-pending");
+}
+
 function paintSession(session) {
   // Completa todos los componentes de usuario presentes en la vista actual.
   document.querySelectorAll("[data-username]").forEach((element) => {
@@ -57,34 +65,64 @@ function setupShell() {
     });
   });
 
-  window.addEventListener("workly:session-expired", () => goToLogin("expired"), { once: true });
+  window.addEventListener("nexora:session-expired", () => goToLogin("expired"), { once: true });
 }
 
-export function requireAuth(requiredPermission = "dashboard") {
-  // Primera barrera: debe existir una sesión creada por el login.
+function validateProtectedView(requiredPermission) {
+  // pageshow también ejecuta esta función al restaurar una página con Atrás.
+  hidePageUntilValidated();
+
   const session = getSession();
   if (!session) {
     goToLogin("required");
     return null;
   }
 
-  // Segunda barrera: el rol debe poseer el permiso exigido por la vista.
   if (!can(requiredPermission, session)) {
     window.location.replace(HOME_URL.href);
     return null;
   }
 
-  // La vista solo se inicializa después de superar ambas verificaciones.
+  // La vista se revela únicamente después de validar sesión y permisos.
   paintSession(session);
   applyPermissionVisibility(session);
+  showValidatedPage();
+  return session;
+}
+
+export function requireAuth(requiredPermission = "dashboard") {
+  const session = validateProtectedView(requiredPermission);
+  if (!session) return null;
+
   setupShell();
+
+  // pagehide deja oculta la copia que el navegador puede guardar en BFCache.
+  window.addEventListener("pagehide", hidePageUntilValidated);
+
+  // pageshow se dispara tanto en carga normal como al navegar con Atrás/Adelante.
+  window.addEventListener("pageshow", () => {
+    validateProtectedView(requiredPermission);
+  });
+
   return session;
 }
 
 export function redirectIfAuthenticated() {
-  if (getSession()) {
-    window.location.replace(HOME_URL.href);
-    return true;
+  function validateLoginView() {
+    hidePageUntilValidated();
+
+    if (getSession()) {
+      window.location.replace(HOME_URL.href);
+      return true;
+    }
+
+    showValidatedPage();
+    return false;
   }
-  return false;
+
+  // Evita volver al formulario de login con Atrás cuando la sesión está activa.
+  window.addEventListener("pagehide", hidePageUntilValidated);
+  window.addEventListener("pageshow", validateLoginView);
+
+  return validateLoginView();
 }

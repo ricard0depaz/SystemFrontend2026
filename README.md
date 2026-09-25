@@ -1,4 +1,4 @@
-# Workly — frontend vanilla
+# Nexora — frontend vanilla
 
 Frontend sin framework para la API de [`practicaSpringBoot`](https://github.com/devjosueguinea/practicaSpringBoot).
 
@@ -59,6 +59,8 @@ El login de la API devuelve `data.rol`. `authService.js` transforma ese valor en
 - Rol no reconocido: solo panel principal.
 
 El guard bloquea vistas no permitidas y los elementos con `data-permission` se ocultan según esta matriz.
+
+Las vistas comienzan con la clase `auth-pending`, por lo que permanecen ocultas hasta que el guard valida la sesión. Los eventos `pagehide` y `pageshow` vuelven a ocultar y validar las páginas restauradas desde la caché del navegador; así no se muestra el panel antes de redirigir ni se puede regresar a él con el botón Atrás después de cerrar sesión.
 
 > Ocultar opciones en el frontend no reemplaza autorización del servidor. La API revisada solo exige que el usuario esté autenticado; no usa `hasRole` o `hasAuthority` en sus endpoints.
 

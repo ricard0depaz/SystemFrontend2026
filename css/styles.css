@@ -18,6 +18,11 @@
   --sidebar-width: 252px;
 }
 
+/* Evita mostrar una vista mientras el guard comprueba la sesión. */
+html.auth-pending body {
+  visibility: hidden;
+}
+
 * { box-sizing: border-box; }
 
 html { min-width: 320px; }

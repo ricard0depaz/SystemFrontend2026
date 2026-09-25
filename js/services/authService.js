@@ -1,6 +1,6 @@
 // URL del controlador de autenticación en la API de Spring Boot.
 const API_URL = "http://localhost:8080/api/auth";
-const SESSION_KEY = "workly.session";
+const SESSION_KEY = "nexora.session";
 
 // Nombres únicos usados por las vistas para mostrar u ocultar cada función.
 export const PERMISSIONS = Object.freeze({
@@ -164,5 +164,5 @@ export function handleUnauthorized(status) {
   }
 
   clearSession();
-  window.dispatchEvent(new CustomEvent("workly:session-expired"));
+  window.dispatchEvent(new CustomEvent("nexora:session-expired"));
 }
