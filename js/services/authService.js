@@ -54,6 +54,7 @@ function normalizeRole(role = "") {
     .replace(/[\u0300-\u036f]/g, "")
     .trim()
     .toUpperCase()
+    .replace(/^(ROLE_)+/, "")
     .replace(/[\s-]+/g, "_");
 }
 
