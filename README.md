@@ -27,12 +27,11 @@ Todas las vistas están en la raíz:
         └── departamentosService.js
 ```
 
-No existe `config.js` ni un módulo común. Cada servicio contiene la URL del controlador de API que consume. Actualmente apunta a `http://localhost:8080`; si el backend usa otro host o puerto hay que cambiar las constantes `AUTH_URL`, `EMPLOYEES_URL` y `DEPARTMENTS_URL` en sus servicios respectivos.
+No existe `config.js` ni un módulo común. Cada servicio contiene la URL del controlador de API que consume. El frontend apunta al backend desplegado en `https://systemrh-5d827726e203.herokuapp.com`.
 
 ## Ejecución
 
-1. Iniciar la API Spring Boot en el puerto `8080` con sus variables de entorno.
-2. Servir este directorio por HTTP. Por ejemplo:
+1. Servir este directorio por HTTP. Por ejemplo:
 
    ```bash
    npx serve .

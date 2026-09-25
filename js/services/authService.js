@@ -1,5 +1,5 @@
 // URL del controlador de autenticación en la API de Spring Boot.
-const API_URL = "http://localhost:8080/api/auth";
+const API_URL = "https://systemrh-5d827726e203.herokuapp.com/api/auth";
 const SESSION_KEY = "nexora.session";
 
 // Nombres únicos usados por las vistas para mostrar u ocultar cada función.

@@ -1,7 +1,7 @@
 import { handleUnauthorized } from "./authService.js";
 
 // URL del controlador de empleados en la API de Spring Boot.
-const API_URL = "http://localhost:8080/api/empleados";
+const API_URL = "https://systemrh-5d827726e203.herokuapp.com/api/empleados";
 
 // Función para obtener todos los empleados.
 export async function getEmployees() {

@@ -1,7 +1,7 @@
 import { handleUnauthorized } from "./authService.js";
 
 // URL del controlador de departamentos en la API de Spring Boot.
-const API_URL = "http://localhost:8080/api/departamentos";
+const API_URL = "https://systemrh-5d827726e203.herokuapp.com/api/departamentos";
 
 // Función para obtener todos los departamentos.
 export async function getDepartments() {
