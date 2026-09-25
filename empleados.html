@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workly | Empleados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="app-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="./index.html"><span class="brand-mark">W</span><span>Workly</span></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <p class="nav-caption">Espacio de trabajo</p>
+        <a class="nav-link" href="./index.html" data-permission="dashboard"><span class="nav-icon">⌂</span> Resumen</a>
+        <a class="nav-link active" href="./empleados.html" data-permission="empleados:ver"><span class="nav-icon">♙</span> Empleados</a>
+        <a class="nav-link" href="./departamentos.html" data-permission="departamentos:ver"><span class="nav-icon">◇</span> Departamentos</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="avatar" data-user-initial>U</div>
+          <div class="user-meta"><strong data-username>Usuario</strong><span data-role>Rol</span></div>
+          <button class="icon-button" type="button" data-logout aria-label="Cerrar sesión">↗</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar list-topbar">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menú">☰</button>
+        <div><p class="eyebrow">Directorio</p><h1>Empleados</h1></div>
+        <button class="primary-button" id="newEmployeeButton" type="button" data-permission="empleados:crear">＋ Nuevo empleado</button>
+      </header>
+
+      <section class="panel table-panel">
+        <div class="table-toolbar">
+          <div>
+            <h2>Personas del equipo</h2>
+            <p id="employeeSummary">Cargando empleados…</p>
+          </div>
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="employeeSearch" type="search" placeholder="Buscar por nombre, correo…">
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Empleado</th><th>Departamento</th><th>Ingreso</th><th>Salario</th><th class="actions-column">Acciones</th></tr></thead>
+            <tbody id="employeeTableBody"></tbody>
+          </table>
+          <div class="empty-state" id="employeeEmpty" hidden>
+            <span>♙</span><h3>No hay empleados para mostrar</h3><p>Prueba con otra búsqueda o agrega un registro.</p>
+          </div>
+        </div>
+        <div class="pagination" id="employeePagination"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="modal" id="employeeModal">
+    <form id="employeeForm" method="dialog" novalidate>
+      <div class="modal-header">
+        <div><p class="eyebrow">Nuevo registro</p><h2>Agregar empleado</h2></div>
+        <button class="close-button" type="button" data-close-modal aria-label="Cerrar">×</button>
+      </div>
+      <div class="form-grid">
+        <div class="form-field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required maxlength="80"></div>
+        <div class="form-field"><label for="apellido">Apellido</label><input id="apellido" name="apellido" required maxlength="80"></div>
+        <div class="form-field full"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" required maxlength="120"></div>
+        <div class="form-field"><label for="fecha_ingreso">Fecha de ingreso</label><input id="fecha_ingreso" name="fecha_ingreso" type="date" required></div>
+        <div class="form-field"><label for="salario">Salario</label><input id="salario" name="salario" type="number" min="0" step="0.01" required></div>
+        <div class="form-field full"><label for="idDepartamento">Departamento</label><select id="idDepartamento" name="idDepartamento" required><option value="">Selecciona un departamento</option></select></div>
+      </div>
+      <div class="modal-actions"><button class="secondary-button" type="button" data-close-modal>Cancelar</button><button class="primary-button" id="saveEmployeeButton" type="submit">Guardar empleado</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="./js/controllers/empleadosController.js"></script>
+</body>
+</html>

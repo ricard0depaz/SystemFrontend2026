@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Panel administrativo de empleados y departamentos">
+  <title>Workly | Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="app-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="./index.html" aria-label="Ir al inicio">
+        <span class="brand-mark" aria-hidden="true">W</span>
+        <span>Workly</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <p class="nav-caption">Espacio de trabajo</p>
+        <a class="nav-link active" href="./index.html" data-permission="dashboard">
+          <span class="nav-icon" aria-hidden="true">⌂</span> Resumen
+        </a>
+        <a class="nav-link" href="./empleados.html" data-permission="empleados:ver">
+          <span class="nav-icon" aria-hidden="true">♙</span> Empleados
+        </a>
+        <a class="nav-link" href="./departamentos.html" data-permission="departamentos:ver">
+          <span class="nav-icon" aria-hidden="true">◇</span> Departamentos
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="avatar" data-user-initial>U</div>
+          <div class="user-meta">
+            <strong data-username>Usuario</strong>
+            <span data-role>Rol</span>
+          </div>
+          <button class="icon-button" type="button" data-logout aria-label="Cerrar sesión" title="Cerrar sesión">↗</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menú">☰</button>
+        <div>
+          <p class="eyebrow">Panel administrativo</p>
+          <h1>Hola, <span data-first-name>equipo</span></h1>
+        </div>
+        <div class="topbar-actions">
+          <span class="status-pill"><i></i> Sistema activo</span>
+        </div>
+      </header>
+
+      <section class="hero-card">
+        <div>
+          <span class="hero-label">Vista general</span>
+          <h2>Tu equipo, en un solo lugar.</h2>
+          <p>Consulta la estructura de la organización y administra la información disponible según tu nivel de acceso.</p>
+        </div>
+        <div class="hero-decoration" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Indicadores">
+        <article class="stat-card" data-permission="empleados:ver">
+          <div class="stat-icon coral">♙</div>
+          <div>
+            <p>Empleados</p>
+            <strong id="employeeCount">—</strong>
+            <span>registros activos</span>
+          </div>
+        </article>
+        <article class="stat-card" data-permission="departamentos:ver">
+          <div class="stat-icon violet">◇</div>
+          <div>
+            <p>Departamentos</p>
+            <strong id="departmentCount">—</strong>
+            <span>áreas registradas</span>
+          </div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon mint">✓</div>
+          <div>
+            <p>Tu acceso</p>
+            <strong class="access-role" data-role>—</strong>
+            <span>permisos asignados</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel quick-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Accesos directos</p>
+              <h2>¿Qué quieres hacer?</h2>
+            </div>
+          </div>
+          <div class="quick-links">
+            <a href="./empleados.html" data-permission="empleados:ver">
+              <span class="quick-icon coral">♙</span>
+              <span><strong>Ver empleados</strong><small>Directorio y datos laborales</small></span>
+              <b>→</b>
+            </a>
+            <a href="./departamentos.html" data-permission="departamentos:ver">
+              <span class="quick-icon violet">◇</span>
+              <span><strong>Ver departamentos</strong><small>Estructura de la empresa</small></span>
+              <b>→</b>
+            </a>
+            <a href="./empleados.html?nuevo=true" data-permission="empleados:crear">
+              <span class="quick-icon mint">＋</span>
+              <span><strong>Nuevo empleado</strong><small>Agrega una persona al equipo</small></span>
+              <b>→</b>
+            </a>
+          </div>
+        </article>
+
+        <article class="panel permission-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Sesión actual</p>
+              <h2>Permisos habilitados</h2>
+            </div>
+          </div>
+          <ul class="permission-list" id="permissionList"></ul>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+  <script type="module" src="./js/controllers/indexController.js"></script>
+</body>
+</html>
